@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h2>My new app!</h2>
+        <h2>My new rebranded app!</h2>
         <p>
           This is commit n. 2
         </p>
