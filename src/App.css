@@ -14,7 +14,8 @@
 }
 
 .App-header {
-  background-color: #111;
+  background: url('bg.svg');
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
