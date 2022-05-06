@@ -6,9 +6,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h2>My new rebranded app!</h2>
+        <h2>Commit n. 3</h2>
+        <img src="https://picsum.photos/200" alt="random picture" />
         <p>
-          This is commit n. 2
+          This is commit n. 3
         </p>
       </header>
     </div>
