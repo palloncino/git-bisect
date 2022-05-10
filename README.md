@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# GIT BISECT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bisect allowes you to find the specific commit that introduced a bug in a convenient way.
 
-## Available Scripts
+You will have good and bad commits, either with the bug or without.
 
-In the project directory, you can run:
+We chackout to the latest - most recent - commit, where there is the bug and we run:
 
-### `npm start`
+```bash
+git bisect start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+now we will tell git that in this commit there is the bug
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+git bisect bad
+```
 
-### `npm test`
+now, through git log, we find a commit were we know there is no issue
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git log
+```
 
-### `npm run build`
+here we pick a old commit without the bug and we mark it as good
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git bisect good d255f8a8e5ea6dbaac078fc7f094243294360a78
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+this will check us out to a branch in the middle, and we need to tell git if it's good or bad 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git bisect bad
+```
 
-### `npm run eject`
+so he will continue getting closer to the initial good commit and requiring us to judge it
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git bisect good
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+when there are no commits in between good and bad, we know what commit introduced the bug. (output: 8162b7f5b590f2211916e05305c762e736f76aa3)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+git bisect reset
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+we can show the commit changes by running:
 
-## Learn More
+```bash
+git show 8162b7f5b590f2211916e05305c762e736f76aa3
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+we can now revert the commit with:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git revert 8162b7f5b590f2211916e05305c762e736f76aa3
+```
